@@ -128,9 +128,9 @@ class HBNBCommand(cmd.Cmd):
             try:
                 value = eval(value)
                 if type(value) is str:
-                    value = value.replace("_", " ").replace('"', '\\"')
+                    value = value.strip('"\'').replace('_', ' ').replace('\\', '"')
                 dictionary[key] = value
-            except SyntaxError as err:
+            except ValueError as err:
                 pass
         new_instance = HBNBCommand.classes[args_lst[0]]()
         setattr(new_instance, key, value)
