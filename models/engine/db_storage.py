@@ -4,6 +4,8 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from models.state import State
+from models.city import City
 import os
 
 user = os.getenv("HBNB_MYSQL_USER")
@@ -12,6 +14,7 @@ pwd = os.getenv("HBNB_MYSQL_PWD")
 db = os.getenv("HBNB_MYSQL_DB")
 env = os.getenv("HBNB_ENV")
 
+classes = [State, City]
 
 class DBStorage:
     """Class for database engine
@@ -35,7 +38,7 @@ class DBStorage:
             for clss in classes:
                 result = DBStorage.__session.query(clss).all()
                 for row in result:
-                    key = "{}.{}".format(row.__class__.__name__, rows.id)
+                    key = "{}.{}".format(row.__class__.__name__, row.id)
                     dictionary[key] = row
         elif cls in classes:
             for row in DBStorage.__session.query(cls).all():
