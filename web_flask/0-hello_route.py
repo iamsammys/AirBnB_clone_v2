@@ -20,5 +20,3 @@ def hello_world():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
-    subprocess.run("export, FLASK_APP=0-hello_route.py")
-    subprocess.run("flask run")
