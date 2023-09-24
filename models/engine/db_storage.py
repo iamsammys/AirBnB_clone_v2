@@ -23,15 +23,14 @@ class DBStorage:
     __engine = None
     __session = None
 
-
     def __init__(self):
         """instantiates the DBStorage class objects
         """
-        DBStorage.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
-            user, pwd, host, db), pool_pre_ping=True)
+        DBStorage.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format
+                                           (user, pwd, host, db),
+                                           pool_pre_ping=True)
         if env == "test":
             Base.metadata.drop_all()
-
 
     def all(self, cls=None):
         """Returns all the objects of a class from the database
@@ -49,24 +48,20 @@ class DBStorage:
                 dictionary[key] = row
         return dictionary
 
-
     def new(self, obj=None):
         """Adds instance to the current database session
         """
         DBStorage.__session.add(obj)
-
 
     def save(self):
         """Commits all changes of the current database session
         """
         DBStorage.__session.commit()
 
-
     def delete(self, obj=None):
         """Delete from the current database session obj if not None
         """
         DBStorage.__session.delete(obj)
-
 
     def reload(self):
         """Creates the current database session
@@ -76,7 +71,6 @@ class DBStorage:
                                expire_on_commit=False)
         Scoped_session = scoped_session(Session)
         DBStorage.__session = Scoped_session()
-
 
     def close(self):
         """Calls remove method on the private session attribute

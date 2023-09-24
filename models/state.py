@@ -11,7 +11,7 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="states",\
+    cities = relationship("City", backref="states",
                           cascade="all, delete-orphan")
 
     if storage_type != "db":
@@ -19,9 +19,9 @@ class State(BaseModel, Base):
         def cities(self):
             """Getter attribute cities that returns the list of City instances
 
-		    Returns:
-			    list of objects
-		    """
+            Returns:
+                list of objects
+            """
             from models import storage
             my_list = []
             rel_cities = storage.all(City).values()
@@ -29,4 +29,3 @@ class State(BaseModel, Base):
                 if self.id == city.state_id:
                     my_list.append(city)
             return my_list
-
