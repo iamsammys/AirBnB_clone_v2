@@ -44,7 +44,7 @@ class DBStorage:
                     dictionary[key] = row
         elif cls in classes:
             for row in DBStorage.__session.query(cls).all():
-                key = "{}.{}".format(row.__class__.__name__, rows.id)
+                key = "{}.{}".format(row.__class__.__name__, row.id)
                 dictionary[key] = row
         return dictionary
 
